@@ -19,13 +19,12 @@ app.get('/orders', (req, res) => {
     });
 });
 
-app.get('/orders/:orderId', (req, res) => {
+app.get('/order/:orderId', (req, res) => {
     const orderId=req.params.orderId;
     const results = [];
     let foundOrder=null;
     fs.createReadStream(dbPath).pipe(csv()).on('data', (data) => {
         if(data.order_id === orderId) {
-            console.log(orderId, typeof orderId, typeof data.order_id);
             foundOrder=data;
         }
     }).on('end', () => {
